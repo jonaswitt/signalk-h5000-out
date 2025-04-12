@@ -1,0 +1,15 @@
+{
+  "name": "signalk-h5000-out",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Jonas Witt <mail@jonaswitt.com>",
+  "license": "MIT",
+  "keywords": [
+    "signalk-node-server-plugin",
+    "signalk-category-hardware"
+  ],
+  "dependencies": {
+    "ws": "^8.17.0",
+    "yacht-data-streams": "^0.0.2"
+  }
+}
