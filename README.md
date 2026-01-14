@@ -1,11 +1,7 @@
-# H5000 Output SignalK Plugin
+# Victron Relay Control SignalK Plugin
 
-Publishes the following SignalK values:
+Deploy:
 
-- Bearing to Waypoint
-- Distance to Waypoint
-- VMG on Course
-- Time to Go
-- Cross Track Error
-
-To a B&G H5000 system via its Websocket API.
+```
+rm *.tgz; yarn version --prerelease  --no-git-tag-version && yarn pack && scp *.tgz pi@metalberry:.signalk/
+```

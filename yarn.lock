@@ -1385,6 +1385,11 @@ strip-ansi@^7.0.1:
   dependencies:
     ansi-regex "^6.0.1"
 
+sunrise-sunset-js@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/sunrise-sunset-js/-/sunrise-sunset-js-3.2.0.tgz#af8d906e209037f2f3ca1c1dd4f8ebb10a0ea706"
+  integrity sha512-JYGgifonFnim7/f6QPmSs+5w/o+cyZ2N3mxLeq1PC2+pWW+ajcomnZFwTqXrMklFH2A3dsAE1P+6OIFnvuF25g==
+
 tar@^6.1.11, tar@^6.1.2:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/tar/-/tar-6.2.1.tgz#717549c541bc3c2af15751bea94b1dd068d4b03a"
@@ -1451,6 +1456,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
+
+tz-lookup@^6.1.25:
+  version "6.1.25"
+  resolved "https://registry.yarnpkg.com/tz-lookup/-/tz-lookup-6.1.25.tgz#34d68a7e1ccfcb51f29a9893d2d48e4118d873cd"
+  integrity sha512-fFewT9o1uDzsW1QnUU1ValqaihFnwiUiiHr1S79/fxOzKXYYvX+EHeRnpvQJ9B3Qg67wPXT6QF2Esc4pFOrvLg==
 
 unc-path-regex@^0.1.2:
   version "0.1.2"
@@ -1558,7 +1568,7 @@ ws@^7.5.5:
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.9.tgz#54fa7db29f4c7cec68b1ddd3a89de099942bb591"
   integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
 
-ws@^8.11.0, ws@^8.17.0:
+ws@^8.11.0:
   version "8.17.0"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.17.0.tgz#d145d18eca2ed25aaf791a183903f7be5e295fea"
   integrity sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==
@@ -1581,10 +1591,10 @@ xtend@^4.0.0, xtend@^4.0.1, xtend@^4.0.2, xtend@~4.0.1:
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
-yacht-data-streams@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/yacht-data-streams/-/yacht-data-streams-0.0.2.tgz#ffaa3efe61217ea49a06d0623abde323051dc8b1"
-  integrity sha512-i7sKEyH85wpjuGFs6zTrnHV4vM27O23Y2iTncxvssjtQdZI2Fw4NJdvagE49vA9c3KeA6PUa24BYLkzKzf4Gzg==
+yacht-data-streams@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/yacht-data-streams/-/yacht-data-streams-0.0.4.tgz#fb2d91ef81f81f86533815bdee8b9871e7a6b7eb"
+  integrity sha512-JfZfI3XpwykTND98KwYLv3dfKqJ5DhGnXhuGVe34Ul1VdmYtH+0hSkKj6OWxEE0WvSmDKLMKU8sknyitsl4fvQ==
   dependencies:
     "@canboat/canboatjs" "^2.4.2"
     "@canboat/pgns" "^3.0.0"
@@ -1598,7 +1608,9 @@ yacht-data-streams@^0.0.2:
     mqtt "^4.3.7"
     node-fetch "2"
     parse-duration "^1.1.0"
+    sunrise-sunset-js "^3.2.0"
     toml "^3.0.0"
+    tz-lookup "^6.1.25"
     ws "^8.11.0"
 
 yallist@^4.0.0:
