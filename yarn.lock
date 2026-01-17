@@ -161,6 +161,11 @@
     "@serialport/bindings-interface" "1.2.2"
     debug "4.3.4"
 
+"@types/suncalc@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@types/suncalc/-/suncalc-1.9.2.tgz#207810e705572c29c3f5519c29004d88a0c3b2b3"
+  integrity sha512-ATAGBHHfA1TlE2tjfidLyTcysjoT2JHHEAmWRULh73SU9UTn++j5fqHEW16X6Y/2Li87jEQXzgu4R/OOdlDqzw==
+
 abbrev@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-2.0.0.tgz#cf59829b8b4f03f89dda2771cb7f3653828c89bf"
@@ -1385,10 +1390,10 @@ strip-ansi@^7.0.1:
   dependencies:
     ansi-regex "^6.0.1"
 
-sunrise-sunset-js@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/sunrise-sunset-js/-/sunrise-sunset-js-3.2.0.tgz#af8d906e209037f2f3ca1c1dd4f8ebb10a0ea706"
-  integrity sha512-JYGgifonFnim7/f6QPmSs+5w/o+cyZ2N3mxLeq1PC2+pWW+ajcomnZFwTqXrMklFH2A3dsAE1P+6OIFnvuF25g==
+suncalc@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/suncalc/-/suncalc-1.9.0.tgz#26212353fae61edb287c2d558fc4932ecf0e1532"
+  integrity sha512-vMJ8Byp1uIPoj+wb9c1AdK4jpkSKVAywgHX0lqY7zt6+EWRRC3Z+0Ucfjy/0yxTVO1hwwchZe4uoFNqrIC24+A==
 
 tar@^6.1.11, tar@^6.1.2:
   version "6.2.1"
@@ -1456,11 +1461,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
-
-tz-lookup@^6.1.25:
-  version "6.1.25"
-  resolved "https://registry.yarnpkg.com/tz-lookup/-/tz-lookup-6.1.25.tgz#34d68a7e1ccfcb51f29a9893d2d48e4118d873cd"
-  integrity sha512-fFewT9o1uDzsW1QnUU1ValqaihFnwiUiiHr1S79/fxOzKXYYvX+EHeRnpvQJ9B3Qg67wPXT6QF2Esc4pFOrvLg==
 
 unc-path-regex@^0.1.2:
   version "0.1.2"
@@ -1591,10 +1591,10 @@ xtend@^4.0.0, xtend@^4.0.1, xtend@^4.0.2, xtend@~4.0.1:
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
-yacht-data-streams@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/yacht-data-streams/-/yacht-data-streams-0.0.4.tgz#fb2d91ef81f81f86533815bdee8b9871e7a6b7eb"
-  integrity sha512-JfZfI3XpwykTND98KwYLv3dfKqJ5DhGnXhuGVe34Ul1VdmYtH+0hSkKj6OWxEE0WvSmDKLMKU8sknyitsl4fvQ==
+yacht-data-streams@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/yacht-data-streams/-/yacht-data-streams-0.0.5.tgz#1f06f627d70396eac39b0504ffe9e6e2e93a0480"
+  integrity sha512-dace8/u+9yhHXI5+8E42jMd9NWIBXytCzqIAio7mW9+dlfi5fAcXDXplTnHFvtG5vjJrrDw/O4QLpoqKcgkjrw==
   dependencies:
     "@canboat/canboatjs" "^2.4.2"
     "@canboat/pgns" "^3.0.0"
@@ -1608,9 +1608,7 @@ yacht-data-streams@^0.0.4:
     mqtt "^4.3.7"
     node-fetch "2"
     parse-duration "^1.1.0"
-    sunrise-sunset-js "^3.2.0"
     toml "^3.0.0"
-    tz-lookup "^6.1.25"
     ws "^8.11.0"
 
 yallist@^4.0.0:

@@ -1,17 +1,30 @@
 const { VictronMQTTInput } = require("yacht-data-streams/build/src/victron-mqtt-input");
-const { getSunset, getSunrise, getSolarPosition } = require("sunrise-sunset-js");
+const SunCalc = require('suncalc');
 const fs = require('fs');
 
 const LOG_FILE = 'signalk-victron-relay-control-plugin.log'
+
+/**
+ * Gets the next time (e.g., sunrise) that is greater than or equal to the given time.
+ * Uses 23 hours instead of 24 to handle edge cases where day length changes (e.g., DST transitions,
+ * extreme latitudes) while still capturing the previous and next day's times.
+ */
+const getNextTimeGreaterOrEqualThan = (t, lat, lon, timeKey) => {
+    const times0 = SunCalc.getTimes(new Date(t.getTime() - 23 * 60 * 60 * 1000), lat, lon);
+    const times1 = SunCalc.getTimes(t, lat, lon);
+    const times2 = SunCalc.getTimes(new Date(t.getTime() + 23 * 60 * 60 * 1000), lat, lon);
+    const times = [times0, times1, times2].map(t => t[timeKey]).sort((a, b) => a.getTime() - b.getTime());
+    return times.find(t2 => t2.getTime() >= t.getTime());
+}
 
 const calculateNewState = ({ partial, state, forceSunCalc = false }) => {
     let newState = { ...state, ...partial };
 
     if ((partial.lat !== undefined || partial.lon !== undefined) && newState.lat != null && newState.lon != null || forceSunCalc) {
-        // Always returns *next* sunset/sunrise
-        partial.sunrise = getSunrise(newState.lat, newState.lon);
-        partial.sunElevation = getSolarPosition(newState.lat, newState.lon).elevation;
-        const nextSunElevation = getSolarPosition(newState.lat, newState.lon, new Date(Date.now() + 5 * 60 * 1000)).elevation;
+        const now = new Date();
+        partial.sunrise = getNextTimeGreaterOrEqualThan(now, newState.lat, newState.lon, 'sunrise');
+        partial.sunElevation = SunCalc.getPosition(now, newState.lat, newState.lon).altitude * 180 / Math.PI;
+        const nextSunElevation = SunCalc.getPosition(new Date(Date.now() + 5 * 60 * 1000), newState.lat, newState.lon).altitude * 180 / Math.PI;
         partial.sunRising = nextSunElevation > partial.sunElevation;
         newState = { ...newState, ...partial };
     }
