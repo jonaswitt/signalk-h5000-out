@@ -11,7 +11,8 @@ const controller = new VictronRelayController(
     console.log,
     (value) => {
         // console.log(`Relay state changed: ${value}`);
-    }
+    },
+    true
 );
 
 controller.start();

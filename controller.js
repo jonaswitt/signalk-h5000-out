@@ -95,7 +95,7 @@ const stateToString = (state) => [
 ].join(',');
 
 class VictronRelayController {
-    constructor(settings, log, onRelayStateChange = null) {
+    constructor(settings, log, onRelayStateChange = null, dryRun = false) {
         this.settings = settings;
         this.log = log;
         this.onRelayStateChange = onRelayStateChange;
@@ -104,6 +104,7 @@ class VictronRelayController {
         this.sunInterval = null;
         this.logTimeout = null;
         this.instanceId = null;
+        this.dryRun = dryRun;
     }
 
     start() {
@@ -163,21 +164,29 @@ class VictronRelayController {
 
         const oldRelayState = this.state.relay;
         const relayStateChanged = on !== oldRelayState;
+        const updateRelayStateAfterChange = () => {
+            this.updateState({ relayActual: on });
+            if (relayStateChanged) {
+                if (on) {
+                    this.updateState({ lastRelayChangeOn: new Date() });
+                } else {
+                    this.updateState({ lastRelayChangeOff: new Date() });
+                }
+            }
+        }
+
+        if (this.dryRun) {
+            updateRelayStateAfterChange();
+            return;
+        }
+
 
         this.mqttClient.source.publish(
             `W/${this.instanceId}/system/0/Relay/${this.settings.relay_id}/State`,
             JSON.stringify({ value: on ? 1 : 0 }),
             (err) => {
                 if (err == null) {
-                    // this.log(`Setting relay ${this.settings.relay_id} to ${on ? "ON" : "OFF"}`);
-                    this.updateState({ relayActual: on });
-                    if (relayStateChanged) {
-                        if (on) {
-                            this.updateState({ lastRelayChangeOn: new Date() });
-                        } else {
-                            this.updateState({ lastRelayChangeOff: new Date() });
-                        }
-                    }
+                    updateRelayStateAfterChange();
                 } else {
                     console.error("Error setting relay state:", err);
                 }
@@ -201,7 +210,7 @@ class VictronRelayController {
         if (this.state.soc != null && this.state.voltage != null) {
             // Use this.state to always reference the current state instance variable
             const stateStr = stateToString(this.state);
-            this.log(stateStr);
+            this.log(stateStr + (this.dryRun ? ',DRY RUN' : ''));
             try {
                 fs.appendFileSync(LOG_FILE, stateStr + '\n', {
                     encoding: 'utf8'
