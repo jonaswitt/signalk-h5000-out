@@ -63,32 +63,52 @@ const calculateRelayState = (state) => {
     }
 
     // Ensure that if we turned on recently, we don't turn off again too quickly
-    const hasBeenChargingFor15Mins = (
-        state.lastRelayChangeOn == null ||
-        Date.now() - state.lastRelayChangeOn > 15 * 60 * 1000
+    const chargingHasStartedInLast15Mins = (
+        state.lastRelayChangeOn != null &&
+        Date.now() - state.lastRelayChangeOn <= 15 * 60 * 1000
     )
 
-    // Sun is significantly up - turn off
-    if (state.sunElevation != null && state.sunElevation > 10 && hasBeenChargingFor15Mins) {
+    const isBatteryAlmostFull = state.soc != null && state.soc >= 90;
+    const sunIsUp = state.sunElevation != null && state.sunElevation > 0;
+    const sunIsWayUp = state.sunElevation != null && state.sunElevation > 10;
+
+    // Sun is significantly up - charge
+    if (sunIsWayUp && !chargingHasStartedInLast15Mins) {
         return {
             relayDesired: false,
-            relayReason: 'sun is up'
+            relayReason: 'sun is way up'
         }
     }
 
-    // Sunrise within 4/8 hours - turn off
-    if (state.sunrise != null && state.sunrise.valueOf() < Date.now() + (state.isSailing ? 4 : 8) * 60 * 60 * 1000 && state.sunrise.valueOf() >= Date.now() && state.sunRising && hasBeenChargingFor15Mins) {
+    // Sun is barely up - charge if room to charge
+    if (sunIsUp && isBatteryAlmostFull && !chargingHasStartedInLast15Mins) {
+        return {
+            relayDesired: false,
+            relayReason: 'sun is up (almost fully charged)'
+        }
+    }
+
+    // Sunrise within 4/8 hours - don't charge
+    if (state.sunrise != null && state.sunrise.valueOf() < Date.now() + (state.isSailing ? 4 : 8) * 60 * 60 * 1000 && state.sunrise.valueOf() >= Date.now() - 60 * 1000 && state.sunRising && !chargingHasStartedInLast15Mins) {
         return {
             relayDesired: false,
             relayReason: `sun rising within ${state.isSailing ? '4' : '8'} hours ${state.isSailing ? '(sailing)' : '(stopped)'}`
         }
     }
 
-    // Sun is down - turn on
-    if (state.sunElevation != null && state.sunElevation < 0) {
+    // Sun is down - charge
+    if (!sunIsUp) {
         return {
             relayDesired: true,
             relayReason: 'sun is down'
+        }
+    }
+
+    // Sun is almost down - charge if room to charge
+    if (!sunIsWayUp && !isBatteryAlmostFull) {
+        return {
+            relayDesired: true,
+            relayReason: 'sun is almost down (room to charge)'
         }
     }
 
